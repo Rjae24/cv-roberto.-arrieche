@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { PERSONAL_INFO, CONTACT_INFO } from '../data';
-import { MapPin, Mail, Phone, Github, Printer, Copy, Check, Sparkles, FileText } from 'lucide-react';
+import { MapPin, Mail, Phone, Github, Printer, Copy, Check, Sparkles, FileText, AlertTriangle, ExternalLink, X } from 'lucide-react';
 
 interface HeaderProps {
   onToggleTraditionalMode: () => void;
@@ -11,6 +11,16 @@ interface HeaderProps {
 export default function Header({ onToggleTraditionalMode, isTraditionalMode }: HeaderProps) {
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
+  const [showIframeWarning, setShowIframeWarning] = useState(false);
+
+  // Control detection for preview iframes
+  const isInsideIframe = (() => {
+    try {
+      return window.self !== window.top;
+    } catch (e) {
+      return true;
+    }
+  })();
 
   const copyToClipboard = (text: string, type: 'email' | 'phone') => {
     navigator.clipboard.writeText(text);
@@ -20,6 +30,14 @@ export default function Header({ onToggleTraditionalMode, isTraditionalMode }: H
     } else {
       setCopiedPhone(true);
       setTimeout(() => setCopiedPhone(false), 2000);
+    }
+  };
+
+  const handlePrint = () => {
+    if (isInsideIframe) {
+      setShowIframeWarning(true);
+    } else {
+      window.print();
     }
   };
 
@@ -68,7 +86,7 @@ export default function Header({ onToggleTraditionalMode, isTraditionalMode }: H
                   rel="noopener noreferrer"
                   className="hover:text-indigo-600 transition-colors underline decoration-slate-300"
                 >
-                  github.com/robertoarrieche
+                  github.com/Rjae24
                 </a>
               </div>
 
@@ -123,7 +141,7 @@ export default function Header({ onToggleTraditionalMode, isTraditionalMode }: H
 
             <button
               id="btn-print-cv"
-              onClick={() => window.print()}
+              onClick={handlePrint}
               className="flex-1 md:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-all shadow-sm"
             >
               <Printer className="w-4 h-4" />
@@ -132,6 +150,84 @@ export default function Header({ onToggleTraditionalMode, isTraditionalMode }: H
           </div>
         </div>
       </div>
+
+      {/* Elegant Warning Modal for Iframe / Sandboxed environments */}
+      <AnimatePresence>
+        {showIframeWarning && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowIframeWarning(false)}
+              className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="relative bg-white rounded-3xl border border-slate-100 p-6 md:p-8 max-w-lg w-full shadow-2xl z-10 space-y-6"
+            >
+              <button 
+                onClick={() => setShowIframeWarning(false)}
+                className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-amber-50 border border-amber-100 rounded-2xl text-amber-600 shrink-0">
+                  <AlertTriangle className="w-6 h-6" />
+                </div>
+                <div className="space-y-1.5">
+                  <h3 className="font-display font-bold text-slate-900 text-lg leading-tight">
+                    Restricción de Seguridad del Navegador
+                  </h3>
+                  <span className="text-[10px] font-mono font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded uppercase tracking-wider">
+                    Vista previa de AI Studio
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-4 text-sm text-slate-600 leading-relaxed">
+                <p>
+                  <strong>¡Hola Roberto!</strong> Por motivos de seguridad, los navegadores (como Chrome) <strong>bloquean silenciosamente</strong> la llamada de impresión <code className="bg-slate-100 px-1 py-0.5 rounded text-xs font-mono">window.print()</code> cuando se ejecuta dentro de este recuadro de vista previa (sandbox iframe).
+                </p>
+                <p>
+                  Para solucionarlo, solo debes seguir este sencillo paso:
+                </p>
+                <div className="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 flex gap-3 text-indigo-950 text-xs text-justify">
+                  <div className="font-bold flex items-center justify-center w-5 h-5 bg-indigo-200 text-indigo-800 rounded-full shrink-0">1</div>
+                  <p>
+                    Haz clic en el botón de <strong>"Abrir en pestaña nueva" ↗</strong> ubicado en la esquina superior derecha del editor de AI Studio (o en la barra del reproductor). Una vez que la página cargue en pantalla completa, la función de impresión de tu navegador funcionará perfectamente.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row gap-2.5">
+                <a
+                  href={window.location.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm"
+                >
+                  <span>Abrir Portafolio en una Pestaña</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  onClick={() => setShowIframeWarning(false)}
+                  className="flex-1 inline-flex items-center justify-center px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-medium transition-all"
+                >
+                  Entendido
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

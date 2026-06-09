@@ -34,7 +34,7 @@ export default function PrintCvLayout() {
             </p>
             <p className="flex items-center gap-1 md:justify-end">
               <Github className="w-3.5 h-3.5 text-slate-400" />
-              <span>github.com/robertoarrieche</span>
+              <span>github.com/Rjae24</span>
             </p>
           </div>
         </div>

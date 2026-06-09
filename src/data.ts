@@ -14,7 +14,7 @@ export const CONTACT_INFO: ContactInfo = {
   phoneFormatted: "+58 412-6796865",
   email: "robertoarrieche965@gmail.com",
   location: "Barquisimeto, Estado Lara, Venezuela",
-  github: "https://github.com/robertoarrieche", // inferred based on standard github names
+  github: "https://github.com/Rjae24",
 };
 
 export const TECHNOLOGIES: Technology[] = [
@@ -187,7 +187,7 @@ export const EDUCATION: Education = {
   degree: "Ingeniería en Informática",
   institution: "Instituto Universitario Jesús Obrero (IUJO)",
   location: "Extensión Barquisimeto, Lara, Venezuela",
-  period: "2024 - Presente (En Curso, 5to Semestre)",
+  period: "Presente (En Curso, 5to Semestre)",
   current: true,
   courses: [
     "Estructuras de Datos y Algoritmos Avanzados",

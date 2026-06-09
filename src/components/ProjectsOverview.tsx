@@ -124,80 +124,201 @@ export default function ProjectsOverview() {
             </div>
 
             {/* Screen Simulator Content */}
-            <div className="p-6 bg-slate-950 aspect-video md:aspect-square flex flex-col justify-between text-slate-350 font-sans relative overflow-hidden">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 bg-indigo-600 rounded-lg flex items-center justify-center text-xs text-white">*</span>
-                    <span className="text-white text-xs font-bold font-display">{activeProject.id === 'salud-integral' ? 'Salud Integral' : activeProject.id === 'tren-nueva-segovia' ? 'El Tren Gastro' : 'Andrea\'s Clean'}</span>
+            <div className={`transition-all duration-500 aspect-video md:aspect-square flex flex-col justify-between font-sans relative overflow-hidden select-none ${
+              activeProject.id === 'salud-integral' ? 'bg-gradient-to-br from-[#1b434d] via-[#103038] to-[#1f594a]' :
+              activeProject.id === 'tren-nueva-segovia' ? 'bg-[#0b0b0b] text-[#fbfbfb]' :
+              'bg-gradient-to-b from-[#10565f] via-[#1a4a51] to-[#0d343b] text-white'
+            }`}>
+              
+              {/* Background patterns */}
+              {activeProject.id === 'tren-nueva-segovia' && (
+                <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+              )}
+              {activeProject.id === 'andreas-cleaning' && (
+                <div className="absolute inset-0 opacity-[0.2] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-sky-400 via-transparent to-transparent pointer-events-none" />
+              )}
+
+              {/* SALUD INTEGRAL (HAV) CUSTOM REPLICA */}
+              {activeProject.id === 'salud-integral' && (
+                <div className="flex-1 flex flex-col p-4 justify-between items-center z-10 text-slate-200">
+                  {/* Top Logo Container */}
+                  <div className="bg-[#112f36]/70 border border-[#1d4c57]/50 rounded-xl px-4 py-2 mt-2 flex items-center gap-2.5 max-w-xs justify-center shadow-lg shadow-black/10">
+                    <div className="w-6 h-6 bg-cyan-600 rounded-lg flex items-center justify-center text-white shrink-0 shadow-inner">
+                      <span className="text-[10px] font-bold">♥</span>
+                    </div>
+                    <div className="text-left leading-none">
+                      <span className="block text-[11px] font-extrabold font-display text-white tracking-wider">HAV</span>
+                      <span className="text-[7.5px] text-slate-350 tracking-tight font-mono">HOSPITAL ADVENTISTA DE VENEZUELA</span>
+                    </div>
                   </div>
-                  <span className="text-[9px] text-emerald-400 font-mono">100% ONLINE</span>
+
+                  {/* Accessible personal login card */}
+                  <div className="bg-white rounded-2xl p-5 w-full max-w-[270px] shadow-2xl shadow-black/35 text-slate-800 space-y-3.5 my-3 border border-slate-100 relative">
+                    <div className="text-center space-y-1">
+                      <h4 className="text-slate-900 font-display font-extrabold text-sm sm:text-base leading-tight">
+                        Acceso Personal
+                      </h4>
+                      <p className="text-slate-400 text-[9.5px]">
+                        Ingrese sus credenciales corporativas
+                      </p>
+                    </div>
+
+                    <div className="space-y-2 text-left">
+                      <div>
+                        <label className="block text-[8.5px] font-semibold text-slate-600 mb-0.5">Correo institucional</label>
+                        <div className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-[9px] text-slate-400 font-mono truncate">
+                          usuario@hav.edu.ve
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <label className="block text-[8.5px] font-semibold text-slate-600 mb-0.5">Contraseña</label>
+                          <span className="text-[8px] text-cyan-700 hover:underline">¿Problemas?</span>
+                        </div>
+                        <div className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-[9px] text-slate-300 font-mono flex items-center justify-between">
+                          <span>••••••••</span>
+                          <span className="text-[9px]">👁</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button className="w-full bg-[#1e5863] text-white hover:bg-[#1a4b54] font-bold text-xs py-2 rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5">
+                      <span>Iniciar Sesión</span>
+                      <span className="text-[9px]">➔</span>
+                    </button>
+                  </div>
+
+                  {/* Small legal footer */}
+                  <div className="text-center text-[7.5px] text-slate-400 leading-tight bg-[#0e272e]/50 py-1.5 px-3 rounded-full">
+                    <span className="block">© 2026 Hospital Adventista de Venezuela</span>
+                    <span className="text-slate-500">Sistema seguro de control de historias clínicas</span>
+                  </div>
                 </div>
+              )}
 
-                {/* Simulated visual layout */}
-                {activeProject.id === 'salud-integral' && (
-                  <div className="space-y-2 text-[10px] sm:text-xs">
-                    <div className="grid grid-cols-3 gap-2">
-                      <div className="bg-slate-900 p-2 rounded-lg border border-slate-800">
-                        <span className="block text-slate-500 text-[8px] uppercase">Pacientes</span>
-                        <span className="text-white font-bold font-mono">1,240</span>
+              {/* EL TREN DE NUEVA SEGOVIA REPLICA */}
+              {activeProject.id === 'tren-nueva-segovia' && (
+                <div className="flex-1 flex flex-col p-4 justify-between relative z-10">
+                  {/* Fake Navigation Header */}
+                  <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 bg-white text-black font-extrabold flex items-center justify-center rounded-lg text-[9px] tracking-tighter">
+                        TREN
                       </div>
-                      <div className="bg-slate-900 p-2 rounded-lg border border-slate-800">
-                        <span className="block text-slate-500 text-[8px] uppercase">Consultas</span>
-                        <span className="text-white font-bold font-mono">3,892</span>
-                      </div>
-                      <div className="bg-slate-900 p-2 rounded-lg border border-slate-800">
-                        <span className="block text-slate-500 text-[8px] uppercase">Retardo</span>
-                        <span className="text-emerald-400 font-bold font-mono">&lt;2s</span>
+                      <div className="leading-none text-left">
+                        <span className="block text-[9.5px] font-black uppercase tracking-wider text-white font-display">EL TREN</span>
+                        <span className="text-[7.5px] text-orange-500 font-bold tracking-wider font-mono">FAST FOOD</span>
                       </div>
                     </div>
-                    <div className="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1.5">
-                      <span className="text-slate-400 font-semibold block text-[10px]">Historial de Consultas Recientes</span>
-                      <div className="h-1.5 w-full bg-slate-850 rounded" />
-                      <div className="h-1.5 w-11/12 bg-slate-850 rounded" />
+                    <span className="text-[7px] bg-[#128c7e] text-white font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                      <span className="w-1 h-1 bg-white rounded-full animate-ping" />
+                      Pedir WhatsApp
+                    </span>
+                  </div>
+
+                  {/* Main Hero Slogan */}
+                  <div className="text-center py-4 space-y-2">
+                    <span className="inline-flex items-center gap-1 bg-zinc-900 border border-orange-500/30 text-emerald-400 text-[8px] font-bold px-2 py-0.5 rounded-full uppercase tracking-widest font-mono">
+                      ● COCINA ABIERTA & LISTO
+                    </span>
+                    
+                    <h4 className="text-lg sm:text-2xl font-black tracking-tight font-display text-white uppercase leading-none">
+                      EL SABOR <span className="text-orange-500 filter drop-shadow-[0_0_5px_rgba(249,115,22,0.4)]">CLANDESTINO</span> DE LA CIUDAD
+                    </h4>
+                    
+                    <p className="text-[9px] text-zinc-400 leading-normal max-w-xs mx-auto">
+                      ¡Súbete al tren del sabor! Explora nuestro menú y prepárate para un viaje de puro placer.
+                    </p>
+
+                    <div className="text-[7.5px] text-orange-400/80 font-mono">
+                      📍 Calle 3 & Carrera 1, Barquisimeto
                     </div>
                   </div>
-                )}
 
-                {activeProject.id === 'tren-nueva-segovia' && (
-                  <div className="space-y-2.5 text-[10px] sm:text-xs">
-                    <p className="text-slate-400 text-center font-semibold">⚡ Carga instantánea sin descargar pesados PDFs</p>
-                    <div className="flex gap-1.5 justify-center">
-                      <span className="px-2 py-0.5 bg-indigo-950 text-indigo-400 rounded-full text-[9px] font-semibold border border-indigo-900">Hamburguesas</span>
-                      <span className="px-2 py-0.5 bg-slate-900 text-slate-400 rounded-full text-[9px]">Bebidas</span>
-                      <span className="px-2 py-0.5 bg-slate-900 text-slate-400 rounded-full text-[9px]">Postres</span>
+                  {/* Overlay Polaroid Mockup Stack */}
+                  <div className="flex justify-center items-center gap-2 pt-2 pb-1">
+                    <div className="bg-zinc-900/95 border border-zinc-800 p-1.5 rounded-lg rotate-[-6deg] w-16 text-center shrink-0 shadow-lg">
+                      <div className="aspect-square bg-amber-500/10 rounded flex items-center justify-center text-xs">🥗</div>
+                      <span className="text-[6.5px] text-zinc-400 block mt-1 font-mono">César</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 mt-1">
-                      <div className="bg-slate-900 p-2 rounded-xl border border-slate-800 text-center space-y-1">
-                        <div className="aspect-video bg-amber-500/20 rounded-lg flex items-center justify-center font-display font-extrabold text-[9px]">🍔</div>
-                        <span className="block text-white font-semibold text-[9px]">Premium Burger</span>
-                        <span className="text-emerald-400 text-[9px] font-mono">$8.99</span>
-                      </div>
-                      <div className="bg-slate-900 p-2 rounded-xl border border-slate-800 text-center space-y-1">
-                        <div className="aspect-video bg-emerald-500/20 rounded-lg flex items-center justify-center font-display font-extrabold text-[9px]">🍻</div>
-                        <span className="block text-white font-semibold text-[9px]">Artesanal IPA</span>
-                        <span className="text-emerald-400 text-[9px] font-mono">$4.50</span>
-                      </div>
+
+                    <div className="bg-zinc-900/95 border border-zinc-700 p-2 rounded-xl z-25 scale-110 w-20 text-center shrink-0 shadow-2xl">
+                      <div className="aspect-square bg-orange-500/15 rounded-lg flex items-center justify-center text-base">🍟</div>
+                      <span className="text-[7px] font-bold text-white block mt-1">Súper Papas</span>
+                    </div>
+
+                    <div className="bg-zinc-900/95 border border-zinc-800 p-1.5 rounded-lg rotate-[8deg] w-16 text-center shrink-0 shadow-lg">
+                      <div className="aspect-square bg-amber-500/10 rounded flex items-center justify-center text-xs">🍔</div>
+                      <span className="text-[6.5px] text-zinc-400 block mt-1 font-mono">Burgers</span>
                     </div>
                   </div>
-                )}
+                </div>
+              )}
 
-                {activeProject.id === 'andreas-cleaning' && (
-                  <div className="space-y-2 text-[10px] sm:text-xs text-center">
-                    <p className="text-white font-display text-sm font-bold">Sparkling Clean Home & Office</p>
-                    <p className="text-slate-400 text-[9px]">Premium quality cleaning services in Atlanta, Georgia.</p>
-                    <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 max-w-xs mx-auto space-y-2 mt-2">
-                      <span className="text-emerald-400 text-[9px] uppercase tracking-wider block font-bold font-mono">CTA 100% PERSUASIVO</span>
-                      <div className="bg-emerald-600 text-white font-bold py-1.5 px-3 rounded-lg text-[9.5px]">BOOK ONLINE NOW</div>
+              {/* ANDREA'S CLEANING SERVICE REPLICA */}
+              {activeProject.id === 'andreas-cleaning' && (
+                <div className="flex-1 flex flex-col p-4 justify-between relative z-10 text-white">
+                  {/* Top Phone Ribbon */}
+                  <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-5 h-5 bg-white/10 rounded-md flex items-center justify-center text-[10px]">✨</div>
+                      <span className="font-display font-extrabold text-[10px] tracking-wide">Andrea's Cleaning</span>
+                    </div>
+
+                    <div className="bg-teal-950/50 border border-teal-500/20 rounded-full px-2.5 py-0.5 text-[8px] font-mono text-teal-300">
+                      📞 Calls: +58 (412) 988-4955
                     </div>
                   </div>
-                )}
-              </div>
+
+                  {/* Main Heading Overlay */}
+                  <div className="text-center py-6 space-y-3 my-auto max-w-[280px] mx-auto">
+                    <span className="inline-block bg-[#00adb5]/20 border border-[#00adb5]/50 text-[#00adb5] text-[7.5px] font-bold px-2 py-0.5 rounded uppercase tracking-wider font-mono">
+                      📍 Atlanta, GA & Surrounding Areas
+                    </span>
+
+                    <h4 className="text-lg sm:text-xl font-bold font-display tracking-tight leading-tight text-white">
+                      Andrea's Cleaning Services — <span className="text-teal-300">Professional Home Care</span>
+                    </h4>
+
+                    <p className="text-[9.5px] text-slate-300 leading-relaxed font-sans">
+                      Enjoy a fresh, spotless, and welcoming home. We make your house shine, one room at a time.
+                    </p>
+                  </div>
+
+                  {/* Bottom Double Call To Actions & Trust badges */}
+                  <div className="space-y-3">
+                    <div className="flex gap-2 justify-center">
+                      <button className="bg-cyan-500 hover:bg-cyan-600 text-teal-950 font-extrabold text-[9px] px-3.5 py-1.8 rounded-full shadow-md transition-all flex items-center gap-1">
+                        <span>Reservar Visita</span>
+                        <span>➔</span>
+                      </button>
+
+                      <button className="bg-transparent border border-white/40 text-white font-semibold text-[9px] px-3.5 py-1.8 rounded-full hover:bg-white/10 transition-all">
+                        Mensaje de texto
+                      </button>
+                    </div>
+
+                    <div className="flex items-center justify-center gap-3 border-t border-white/5 pt-2 text-[7px] text-slate-400 font-mono">
+                      <span>✓ 100% Satisfaction</span>
+                      <span>✓ Fully Insured</span>
+                      <span>✓ Locally owned</span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Technical footprint footer */}
-              <div className="pt-4 border-t border-slate-850/80 flex items-center justify-between text-[8px] text-slate-500 font-mono">
-                <span>ESTRUCTURADO POR ROBERTO</span>
-                <span>DESPLEGADO EN PROD</span>
+              <div className={`pt-2.5 pb-2.5 px-4 border-t flex items-center justify-between text-[8px] font-mono shrink-0 ${
+                activeProject.id === 'salud-integral' ? 'border-[#143138]/60 bg-[#0c1a1e] text-slate-500' :
+                activeProject.id === 'tren-nueva-segovia' ? 'border-zinc-900 bg-black text-zinc-500' :
+                'border-teal-950/40 bg-teal-950/80 text-teal-400/80'
+              }`}>
+                <span>INTEGRACIÓN: ROBERTO ARRIECHE</span>
+                <span className="flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                  PRODUCCIÓN ONLINE
+                </span>
               </div>
             </div>
           </div>
