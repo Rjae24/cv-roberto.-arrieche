@@ -1,0 +1,22 @@
+{
+  "name": "ARLUC Soluciones Tecnológicas",
+  "short_name": "ARLUC",
+  "description": "Desarrollo de software a medida, sistemas POS multimoneda y plataformas web en Venezuela.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#040907",
+  "theme_color": "#040907",
+  "lang": "es-VE",
+  "icons": [
+    {
+      "src": "/images/logo-arluc.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/images/logo-arluc.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

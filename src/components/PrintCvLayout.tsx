@@ -1,5 +1,5 @@
 import React from 'react';
-import { PERSONAL_INFO, CONTACT_INFO, TECHNOLOGIES, PROJECTS, EDUCATION } from '../data';
+import { PERSONAL_INFO, CONTACT_INFO, TECHNOLOGIES, PROJECTS, EDUCATION, AGENCY_INFO } from '../data';
 import { MapPin, Mail, Phone, Github, GraduationCap, Calendar, Landmark } from 'lucide-react';
 
 export default function PrintCvLayout() {
@@ -10,6 +10,9 @@ export default function PrintCvLayout() {
       <div className="border-b-2 border-slate-900 pb-6 mb-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div className="space-y-1.5">
+            <span className="inline-block text-[10px] font-mono font-bold uppercase tracking-widest text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">
+              {AGENCY_INFO.brandName}
+            </span>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-950 font-display">
               {PERSONAL_INFO.name}
             </h1>
@@ -68,9 +71,11 @@ export default function PrintCvLayout() {
                     <h3 className="font-bold text-slate-900 text-sm sm:text-base font-display">
                       {project.title}
                     </h3>
-                    <span className="text-[10px] font-semibold text-indigo-700 font-mono bg-indigo-50 px-2 py-0.5 rounded shrink-0">
-                      Enlace: {project.productionUrl.replace("https://", "")}
-                    </span>
+                    {project.productionUrl && (
+                      <span className="text-[10px] font-semibold text-indigo-700 font-mono bg-indigo-50 px-2 py-0.5 rounded shrink-0">
+                        Enlace: {project.productionUrl.replace("https://", "")}
+                      </span>
+                    )}
                   </div>
                   
                   <p className="text-slate-500 font-mono text-[10px] uppercase font-semibold">

@@ -1,15 +1,19 @@
 export interface Project {
   id: string;
+  shortLabel: string;
   title: string;
+  sector: string;
+  solutionType: string;
   description: string;
   longDescription: string;
   challengeSolved: string;
+  solutionApplied: string;
   results: string[];
   technologies: string[];
-  productionUrl: string;
+  imageUrl: string;
+  productionUrl?: string;
   githubUrl?: string;
   role: string;
-  screenshotPrompt: string; // Used to describe the visual context
 }
 
 export interface Technology {
@@ -37,4 +41,33 @@ export interface ContactInfo {
   location: string;
   github: string;
   linkedin?: string;
+}
+
+export interface ServicePackage {
+  id: string;
+  line: string;
+  title: string;
+  tagline: string;
+  deliverables: string[];
+  localPrice: string;
+  localNote?: string;
+  corporatePrice: string;
+  corporateNote?: string;
+  differenceNote: string;
+  highlighted?: boolean;
+}
+
+export interface PricingScheme {
+  id: string;
+  title: string;
+  idealFor: string;
+  advantage: string;
+  structure: string;
+}
+
+export interface CommercialPolicy {
+  id: string;
+  title: string;
+  summary: string;
+  iconName: 'CreditCard' | 'RefreshCw' | 'Server' | 'ShieldCheck' | 'FileCheck';
 }

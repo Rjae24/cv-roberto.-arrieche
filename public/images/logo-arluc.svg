@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#071a12"/>
+      <stop offset="100%" stop-color="#040c08"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="10" y1="52" x2="54" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="60%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#a3e635"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#bg)"/>
+  <rect x="1" y="1" width="62" height="62" rx="15" stroke="#10b981" stroke-opacity="0.35" stroke-width="2"/>
+  <!-- Growth bars -->
+  <rect x="10" y="34" width="4" height="10" rx="1.5" fill="#10b981" fill-opacity="0.7"/>
+  <rect x="16" y="28" width="4" height="16" rx="1.5" fill="#34d399" fill-opacity="0.85"/>
+  <!-- Stylized geometric A -->
+  <path d="M23 48L33 17H39L49 48H42.5L40.4 41H31.6L29.5 48H23ZM33.2 35.5H38.8L36 25.5L33.2 35.5Z" fill="#ffffff"/>
+  <!-- Upward growth arrow cutting through A -->
+  <path d="M13 47C22 47 29 41 47 22" stroke="url(#emeraldGrad)" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M40 21H48.5V29.5" stroke="#a3e635" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
