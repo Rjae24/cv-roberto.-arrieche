@@ -6,6 +6,7 @@ import TechStack from './components/TechStack';
 import AiAugmentation from './components/AiAugmentation';
 import ProjectsOverview from './components/ProjectsOverview';
 import ServicesPricing from './components/ServicesPricing';
+import IdeaAssistantSection from './components/IdeaAssistantSection';
 import CommercialPolicies from './components/CommercialPolicies';
 import EducationSection from './components/EducationSection';
 import PrintCvLayout from './components/PrintCvLayout';
@@ -61,6 +62,7 @@ export default function App() {
               <AboutMe />
               <ProjectsOverview />
               <ServicesPricing />
+              <IdeaAssistantSection />
               <CommercialPolicies />
               <AiAugmentation />
               <TechStack />

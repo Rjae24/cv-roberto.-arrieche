@@ -11,12 +11,36 @@ import {
   Maximize2,
   X,
   Building,
+  ChevronLeft,
+  ChevronRight,
+  Images,
 } from 'lucide-react';
 
 export default function ProjectsOverview() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [lightboxImage, setLightboxImage] = useState<{ url: string; title: string } | null>(null);
+
   const activeProject = PROJECTS[activeProjectIndex];
+  const slides =
+    activeProject.gallery && activeProject.gallery.length > 0
+      ? activeProject.gallery
+      : [{ url: activeProject.imageUrl, label: activeProject.title }];
+
+  const currentSlide = slides[activeSlideIndex] || slides[0];
+
+  const handleSelectProject = (idx: number) => {
+    setActiveProjectIndex(idx);
+    setActiveSlideIndex(0);
+  };
+
+  const prevSlide = () => {
+    setActiveSlideIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    setActiveSlideIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
 
   return (
     <section
@@ -25,7 +49,7 @@ export default function ProjectsOverview() {
     >
       <div className="absolute top-1/3 -left-32 w-80 h-80 bg-emerald-600/15 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,27 +58,28 @@ export default function ProjectsOverview() {
           className="space-y-2 mb-10"
         >
           <span className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
-            Casos de Éxito Seleccionados
+            Proyectos Reales · Barquisimeto &amp; Exterior
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-white tracking-tight">
-            Portafolio en Producción
+            Soluciones Funcionando en Negocios Reales
           </h2>
           <p className="text-slate-400 text-sm max-w-2xl">
-            Cada proyecto documentado bajo el enfoque{' '}
-            <strong className="text-slate-200">Problema → Solución → Impacto</strong>. Selecciona un caso o haz clic en la imagen para verla en grande.
+            Explora cómo ayudamos a comercios, barberías, clínicas y empresas de servicios a{' '}
+            <strong className="text-slate-200">ordenar su operación, cobrar sin pérdidas y captar más clientes</strong>.
           </p>
         </motion.div>
 
-        {/* Visual Thumbnail Selector Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-10">
+        {/* Visual Project Selector Strip */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
           {PROJECTS.map((project, idx) => {
             const isActive = activeProjectIndex === idx;
+            const slideCount = project.gallery?.length || 1;
             return (
               <motion.button
                 key={project.id}
                 whileHover={{ y: -3 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setActiveProjectIndex(idx)}
+                onClick={() => handleSelectProject(idx)}
                 className={`group text-left rounded-2xl border overflow-hidden transition-all relative ${
                   isActive
                     ? 'border-emerald-400/70 bg-emerald-500/10 shadow-[0_0_30px_-10px_rgba(16,185,129,0.65)]'
@@ -65,18 +90,18 @@ export default function ProjectsOverview() {
                   <img
                     src={project.imageUrl}
                     alt={project.title}
-                    className={`w-full h-full object-cover transition-transform duration-500 ${
+                    className={`w-full h-full object-cover object-top transition-transform duration-500 ${
                       isActive ? 'scale-105' : 'opacity-75 group-hover:opacity-100 group-hover:scale-105'
                     }`}
                     loading="lazy"
                   />
-                  {isActive && (
-                    <span className="absolute top-2 right-2 px-2 py-0.5 bg-emerald-500 text-slate-950 text-[10px] font-bold rounded-full shadow">
-                      Activo
+                  {slideCount > 1 && (
+                    <span className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 bg-black/80 text-emerald-300 text-[9px] font-mono rounded-md border border-white/10 inline-flex items-center gap-1">
+                      <Images className="w-2.5 h-2.5" /> {slideCount} vistas
                     </span>
                   )}
                 </div>
-                <div className="p-3">
+                <div className="p-2.5">
                   <p className={`text-xs font-bold truncate ${isActive ? 'text-white' : 'text-slate-300'}`}>
                     {project.shortLabel}
                   </p>
@@ -97,7 +122,7 @@ export default function ProjectsOverview() {
             transition={{ duration: 0.35, ease: 'easeOut' }}
             className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start"
           >
-            {/* Left: Case Study Sheet */}
+            {/* Left: Case Study Sheet (Business Language) */}
             <div className="lg:col-span-6 space-y-5">
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-2">
@@ -120,11 +145,11 @@ export default function ProjectsOverview() {
                 </p>
               </div>
 
-              {/* Challenge */}
+              {/* Problem */}
               <div className="p-4 rounded-2xl bg-amber-500/[0.07] border border-amber-400/20 space-y-1.5">
                 <div className="flex items-center gap-2 text-amber-300 font-semibold text-xs sm:text-sm">
                   <HelpCircle className="w-4 h-4 shrink-0" />
-                  <span>El Reto</span>
+                  <span>¿Qué problema tenía el negocio?</span>
                 </div>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                   {activeProject.challengeSolved}
@@ -135,7 +160,7 @@ export default function ProjectsOverview() {
               <div className="p-4 rounded-2xl bg-emerald-500/[0.07] border border-emerald-400/20 space-y-1.5">
                 <div className="flex items-center gap-2 text-emerald-300 font-semibold text-xs sm:text-sm">
                   <Wrench className="w-4 h-4 shrink-0" />
-                  <span>Solución Técnica Implementada</span>
+                  <span>¿Cómo lo resolvimos?</span>
                 </div>
                 <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
                   {activeProject.solutionApplied}
@@ -146,7 +171,7 @@ export default function ProjectsOverview() {
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2 text-white font-semibold text-xs sm:text-sm">
                   <Lightbulb className="w-4 h-4 text-lime-300 shrink-0" />
-                  <span>Impacto Comercial & Resultados</span>
+                  <span>Beneficios Directos para el Negocio</span>
                 </div>
                 <ul className="space-y-2 text-xs sm:text-sm text-slate-300">
                   {activeProject.results.map((result, rIdx) => (
@@ -158,7 +183,7 @@ export default function ProjectsOverview() {
                 </ul>
               </div>
 
-              {/* Tech pills & Live Demo CTA */}
+              {/* Feature tags & Live Demo CTA */}
               <div className="pt-4 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap gap-1.5">
                   {activeProject.technologies.map((tech) => (
@@ -177,32 +202,34 @@ export default function ProjectsOverview() {
                     target="_blank"
                     rel="noopener noreferrer"
                     referrerPolicy="no-referrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-slate-950 hover:bg-indigo-50 text-xs font-bold rounded-full transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 text-slate-950 hover:bg-emerald-400 text-xs font-bold rounded-full transition-all shadow-sm"
                   >
-                    <span>Visitar Demo</span>
+                    <span>Ver Sistema en Vivo</span>
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 )}
               </div>
             </div>
 
-            {/* Right: Cinematic Browser Frame */}
-            <div className="lg:col-span-6 space-y-3 lg:sticky lg:top-24">
+            {/* Right: Cinematic Browser Frame + Multi-Screen Gallery */}
+            <div className="lg:col-span-6 space-y-3.5 lg:sticky lg:top-24">
               <div className="rounded-3xl border border-white/[0.12] bg-[#08120e] overflow-hidden shadow-[0_25px_70px_-20px_rgba(16,185,129,0.3)]">
+                {/* Browser Top Bar */}
                 <div className="bg-black/60 px-4 py-3 border-b border-white/[0.08] flex items-center justify-between text-slate-400 select-none">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                   </div>
-                  <div className="bg-white/[0.05] rounded-full px-3 py-0.5 text-[10px] font-mono text-slate-400 truncate max-w-[210px]">
-                    {activeProject.productionUrl
-                      ? activeProject.productionUrl.replace('https://', '')
-                      : `${activeProject.id}.arluc.tech`}
+                  <div className="bg-white/[0.05] rounded-full px-3 py-0.5 text-[11px] font-medium text-emerald-300 truncate max-w-[260px]">
+                    {currentSlide.label}
                   </div>
                   <button
                     onClick={() =>
-                      setLightboxImage({ url: activeProject.imageUrl, title: activeProject.title })
+                      setLightboxImage({
+                        url: currentSlide.url,
+                        title: `${activeProject.shortLabel} — ${currentSlide.label}`,
+                      })
                     }
                     className="p-1 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors"
                     title="Ampliar imagen"
@@ -211,31 +238,82 @@ export default function ProjectsOverview() {
                   </button>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() =>
-                    setLightboxImage({ url: activeProject.imageUrl, title: activeProject.title })
-                  }
-                  className="block w-full relative group cursor-zoom-in bg-black"
-                >
-                  <img
-                    src={activeProject.imageUrl}
-                    alt={activeProject.title}
-                    className="w-full aspect-video object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4">
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-black/80 border border-white/15 text-white text-xs font-semibold rounded-full backdrop-blur-md">
-                      <Maximize2 className="w-3.5 h-3.5" />
-                      Ampliar vista
-                    </span>
-                  </div>
-                </button>
+                {/* Main Slide View */}
+                <div className="relative bg-black group">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLightboxImage({
+                        url: currentSlide.url,
+                        title: `${activeProject.shortLabel} — ${currentSlide.label}`,
+                      })
+                    }
+                    className="block w-full cursor-zoom-in"
+                  >
+                    <img
+                      src={currentSlide.url}
+                      alt={currentSlide.label}
+                      className="w-full aspect-video object-cover object-top transition-all duration-300"
+                    />
+                  </button>
+
+                  {slides.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={prevSlide}
+                        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/75 border border-white/15 text-white flex items-center justify-center hover:bg-emerald-500 hover:text-slate-950 transition shadow-lg"
+                        title="Pantalla anterior"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={nextSlide}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/75 border border-white/15 text-white flex items-center justify-center hover:bg-emerald-500 hover:text-slate-950 transition shadow-lg"
+                        title="Siguiente pantalla"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs text-slate-500 px-1 font-mono">
-                <span>{activeProject.solutionType}</span>
-                <span>Clic en la imagen para zoom</span>
-              </div>
+              {/* Screen Thumbnails Strip (if project has multiple screenshots) */}
+              {slides.length > 1 && (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+                    <span className="font-semibold text-emerald-300">
+                      Pantalla {activeSlideIndex + 1} de {slides.length}: {currentSlide.label}
+                    </span>
+                    <span className="text-[11px] text-slate-500">Haz clic para cambiar de vista</span>
+                  </div>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    {slides.map((s, sIdx) => {
+                      const active = sIdx === activeSlideIndex;
+                      return (
+                        <button
+                          key={s.url + sIdx}
+                          type="button"
+                          onClick={() => setActiveSlideIndex(sIdx)}
+                          className={`rounded-xl overflow-hidden border transition-all text-left ${
+                            active
+                              ? 'border-emerald-400 ring-2 ring-emerald-400/30 opacity-100'
+                              : 'border-white/10 opacity-60 hover:opacity-100'
+                          }`}
+                        >
+                          <img
+                            src={s.url}
+                            alt={s.label}
+                            className="w-full aspect-video object-cover object-top bg-slate-950"
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>
@@ -267,7 +345,7 @@ export default function ProjectsOverview() {
               <img
                 src={lightboxImage.url}
                 alt={lightboxImage.title}
-                className="w-full max-h-[80vh] object-contain bg-black"
+                className="w-full max-h-[82vh] object-contain bg-black"
               />
             </motion.div>
           </div>

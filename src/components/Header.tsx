@@ -27,6 +27,7 @@ const NAV_ITEMS = [
   { id: 'about-me-section', label: 'Propuesta' },
   { id: 'projects-section', label: 'Portafolio' },
   { id: 'services-pricing-section', label: 'Tarifario' },
+  { id: 'idea-assistant-section', label: 'Asistente IA' },
   { id: 'policies-section', label: 'Políticas' },
   { id: 'skills-section', label: 'Stack' },
 ];

@@ -11,6 +11,7 @@ export interface Project {
   results: string[];
   technologies: string[];
   imageUrl: string;
+  gallery?: { url: string; label: string }[];
   productionUrl?: string;
   githubUrl?: string;
   role: string;
