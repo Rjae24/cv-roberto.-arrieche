@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PROJECTS } from '../data';
+import { PROJECTS, CONTACT_INFO } from '../data';
 import {
   ExternalLink,
   CheckCircle,
@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Images,
+  MessageSquare,
 } from 'lucide-react';
 
 export default function ProjectsOverview() {
@@ -196,16 +197,28 @@ export default function ProjectsOverview() {
                   ))}
                 </div>
 
-                {activeProject.productionUrl && (
+                {activeProject.productionUrl ? (
                   <a
                     href={activeProject.productionUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     referrerPolicy="no-referrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-500 text-slate-950 hover:bg-emerald-400 text-xs font-bold rounded-full transition-all shadow-sm"
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 min-h-[44px] bg-emerald-500 text-slate-950 hover:bg-emerald-400 text-xs font-bold rounded-full transition-all shadow-sm"
                   >
                     <span>Ver Sistema en Vivo</span>
                     <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                ) : (
+                  <a
+                    href={`https://wa.me/${CONTACT_INFO.phone}?text=${encodeURIComponent(
+                      `Hola Roberto, vi el caso de "${activeProject.shortLabel}" en la web de ARLUC y me gustaría ver una demo privada.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 min-h-[44px] bg-emerald-500/15 hover:bg-emerald-400 text-emerald-200 hover:text-slate-950 border border-emerald-400/35 text-xs font-bold rounded-full transition-all shadow-sm"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>Solicitar Demo Privada</span>
                   </a>
                 )}
               </div>
@@ -231,10 +244,11 @@ export default function ProjectsOverview() {
                         title: `${activeProject.shortLabel} — ${currentSlide.label}`,
                       })
                     }
-                    className="p-1 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors"
+                    className="p-2 min-w-[36px] min-h-[36px] flex items-center justify-center hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors"
                     title="Ampliar imagen"
+                    aria-label="Ampliar imagen"
                   >
-                    <Maximize2 className="w-3.5 h-3.5" />
+                    <Maximize2 className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -262,18 +276,20 @@ export default function ProjectsOverview() {
                       <button
                         type="button"
                         onClick={prevSlide}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/75 border border-white/15 text-white flex items-center justify-center hover:bg-emerald-500 hover:text-slate-950 transition shadow-lg"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/75 border border-white/15 text-white flex items-center justify-center hover:bg-emerald-500 hover:text-slate-950 transition shadow-lg"
                         title="Pantalla anterior"
+                        aria-label="Pantalla anterior"
                       >
-                        <ChevronLeft className="w-4 h-4" />
+                        <ChevronLeft className="w-5 h-5" />
                       </button>
                       <button
                         type="button"
                         onClick={nextSlide}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/75 border border-white/15 text-white flex items-center justify-center hover:bg-emerald-500 hover:text-slate-950 transition shadow-lg"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/75 border border-white/15 text-white flex items-center justify-center hover:bg-emerald-500 hover:text-slate-950 transition shadow-lg"
                         title="Siguiente pantalla"
+                        aria-label="Siguiente pantalla"
                       >
-                        <ChevronRight className="w-4 h-4" />
+                        <ChevronRight className="w-5 h-5" />
                       </button>
                     </>
                   )}

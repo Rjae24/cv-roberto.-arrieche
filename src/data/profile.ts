@@ -11,13 +11,13 @@ export const AGENCY_INFO = {
 
 export const PERSONAL_INFO = {
   name: "Roberto José Arrieche Escovar",
-  title: "Fundador de ARLUC Soluciones Tecnológicas | Desarrollador Full-Stack",
+  title: "Fundador de ARLUC Soluciones Tecnológicas",
   subtitle:
-    "Transformamos procesos manuales en sistemas web rápidos, seguros y listos para vender. Especializados en sistemas de gestión (POS, inventarios, historias clínicas), aplicaciones web y landing pages de alta conversión.",
+    "Transformamos procesos manuales en sistemas web rápidos, seguros y listos para vender. Especializados en sistemas de gestión (POS, inventarios, historias clínicas), aplicaciones web y páginas de alta conversión.",
   location: "Barquisimeto, Estado Lara, Venezuela",
   locationShort: "Barquisimeto, Venezuela",
   profileSummary:
-    "Soy estudiante del 5to semestre de Ingeniería en Informática en el Instituto Universitario Jesús Obrero (IUJO) y fundador de ARLUC Soluciones Tecnológicas. Ayudo a comercios, clínicas y empresas de servicios a dejar atrás el desorden operativo y las plantillas genéricas mediante software a medida, rápido y pensado bajo filosofía Mobile-First para el día a día real de cada negocio.",
+    "Fundador de ARLUC Soluciones Tecnológicas. Ayudo a comercios, clínicas, barberías y empresas de servicios a dejar atrás el desorden operativo y las plantillas genéricas mediante soluciones digitales rápidas, intuitivas y pensadas para el día a día real desde el celular o mostrador.",
 };
 
 export const CONTACT_INFO: ContactInfo = {

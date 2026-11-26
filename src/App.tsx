@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import Header from './components/Header';
 import AboutMe from './components/AboutMe';
-import TechStack from './components/TechStack';
-import AiAugmentation from './components/AiAugmentation';
 import ProjectsOverview from './components/ProjectsOverview';
+import TestimonialsSection from './components/TestimonialsSection';
+import HowItWorks from './components/HowItWorks';
 import ServicesPricing from './components/ServicesPricing';
 import IdeaAssistantSection from './components/IdeaAssistantSection';
 import CommercialPolicies from './components/CommercialPolicies';
-import EducationSection from './components/EducationSection';
+import AiAugmentation from './components/AiAugmentation';
+import QuickContactForm from './components/QuickContactForm';
 import PrintCvLayout from './components/PrintCvLayout';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
-import { PERSONAL_INFO, CONTACT_INFO, AGENCY_INFO } from './data';
-import { Mail, MessageSquare, ArrowUpRight } from 'lucide-react';
+import { PERSONAL_INFO, AGENCY_INFO } from './data';
 
 export default function App() {
   const [isTraditionalMode, setIsTraditionalMode] = useState(false);
@@ -61,12 +61,12 @@ export default function App() {
             >
               <AboutMe />
               <ProjectsOverview />
+              <TestimonialsSection />
+              <HowItWorks />
               <ServicesPricing />
               <IdeaAssistantSection />
               <CommercialPolicies />
               <AiAugmentation />
-              <TechStack />
-              <EducationSection />
             </motion.div>
           ) : (
             <motion.div
@@ -107,18 +107,21 @@ export default function App() {
         </div>
       </main>
 
-      {/* 4. MotionSites Final CTA Banner (no-print) */}
+      {/* 4. Final CTA Banner + Quick Contact Form (no-print) */}
       {!isTraditionalMode && (
-        <section className="py-24 relative overflow-hidden border-t border-white/[0.08] no-print">
+        <section
+          id="contact-section"
+          className="py-24 relative overflow-hidden border-t border-white/[0.08] no-print"
+        >
           <div className="absolute inset-0 motion-grid-bg opacity-60 pointer-events-none" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[280px] bg-emerald-600/20 blur-[120px] rounded-full pointer-events-none" />
 
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-6"
+            className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-5"
           >
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.05] border border-emerald-400/20 text-xs font-mono text-emerald-300">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -126,50 +129,29 @@ export default function App() {
             </span>
 
             <h3 className="text-3xl sm:text-5xl font-display font-bold tracking-tight gradient-text leading-tight">
-              ¿Listo para llevar tu negocio al siguiente nivel?
+              ¿Listo para ordenar y hacer crecer tu negocio?
             </h3>
 
             <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-              Cuéntame qué proceso quieres automatizar o qué proyecto deseas lanzar. Te envío una propuesta clara, tiempos reales y opciones adaptadas a tu presupuesto.
+              Déjanos tus datos en 30 segundos y te respondemos con una propuesta clara, tiempos reales y opciones adaptadas a tu presupuesto.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-4">
-              <a
-                href={`https://wa.me/${CONTACT_INFO.phone}?text=${encodeURIComponent(
-                  'Hola Roberto, revisé el dossier de ARLUC Soluciones Tecnológicas y quiero agendar una conversación sobre un proyecto.'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 text-sm font-bold rounded-full transition-all shadow-[0_0_30px_-5px_rgba(16,185,129,0.65)]"
-              >
-                <MessageSquare className="w-4 h-4" />
-                <span>Hablemos por WhatsApp</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-
-              <a
-                href={`mailto:${CONTACT_INFO.email}`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.12] text-white text-sm font-semibold rounded-full transition-all"
-              >
-                <Mail className="w-4 h-4 text-emerald-300" />
-                <span>Enviar Correo</span>
-              </a>
-            </div>
+            <QuickContactForm />
           </motion.div>
         </section>
       )}
 
-      {/* 5. Minimal Dark Footer (no-print) */}
-      <footer className="bg-[#020504] text-slate-500 py-8 px-4 border-t border-white/[0.06] text-xs text-center font-mono space-y-2 no-print">
+      {/* 5. Minimal Dark Footer (extra bottom padding on mobile so floating button never overlaps) */}
+      <footer className="bg-[#020504] text-slate-500 pt-8 pb-20 sm:pb-10 px-4 border-t border-white/[0.06] text-xs text-center font-mono space-y-2 no-print">
         <p className="text-slate-400">
           {AGENCY_INFO.brandName} · {PERSONAL_INFO.name} © 2026
         </p>
         <p className="text-slate-600">
-          Dossier Comercial, Portafolio Interactivo & Tarifario · Barquisimeto, Venezuela.
+          Sistemas de Gestión, Webs Comerciales &amp; Soluciones a Medida · Barquisimeto, Venezuela.
         </p>
       </footer>
 
-      {/* 6. Floating WhatsApp Button (bottom-right, follows scroll) */}
+      {/* 6. Floating WhatsApp Button (appears after scrolling past hero) */}
       {!isTraditionalMode && <FloatingWhatsApp />}
     </div>
   );
